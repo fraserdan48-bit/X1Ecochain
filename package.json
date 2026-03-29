@@ -1,0 +1,21 @@
+{
+  "name": "x1-ecochain-landing",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^14.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@sendgrid/mail": "^7.7.0",
+    "@supabase/supabase-js": "^2.38.0",
+    "crypto-js": "^4.1.1"
+  }
+}

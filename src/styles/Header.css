@@ -1,0 +1,55 @@
+/* Header styles extracted from index.html and inline styles */
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5vw 2vw 0 2vw;
+    width: 100%;
+    z-index: 10;
+}
+
+.Logo {
+    height: 2.5vw;
+    cursor: pointer;
+}
+
+.MidHeader {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+}
+
+.HeaderLink .HeaderATag {
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.HeaderLink .HeaderATag:hover {
+    color: #0E76FD;
+}
+
+.RightHeader {
+    display: flex;
+    align-items: center;
+}
+
+.ButtonElement {
+    background: #0E76FD;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.5vw 1.2vw;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ButtonElement:hover {
+    background: #095bb5;
+}
+
+.Chevron {
+    margin-left: 0.5vw;
+}

